@@ -96,7 +96,7 @@ namespace TCP_UDP_Tool
                             dataGV.Rows[row].Cells[0].Value = partnerarray[i].ip;
                             dataGV.Rows[row].Cells[1].Value = partnerarray[i].endpoints[j].port;
                             row++;
-                            break;
+                            //break;
                         }                        
                     }
                     else break;

@@ -107,7 +107,8 @@ namespace TCP_UDP_Tool
             clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallbackTCP, null);
             clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null); //CRASHZEILE
             serverSocket.BeginAccept(AcceptCallbackServer, null);
-            
+
+
         }
 
         private void SendCallbackTCP(IAsyncResult ar)
@@ -141,9 +142,7 @@ namespace TCP_UDP_Tool
                 if (message == "Connected")
                 {
                     Row.Cells["Status"].Value = message;
-                    Row.Cells["Status"].Style.BackColor = Color.LimeGreen;                    
-                    if (clientSocket != null) clientSocket.Close();
-                    if (serverSocket != null) serverSocket.Close();
+                    Row.Cells["Status"].Style.BackColor = Color.LimeGreen;
                 }
 
             }
@@ -235,7 +234,7 @@ namespace TCP_UDP_Tool
             }
         }
 
-        /*public void displayStatus()
+        public void displayStatus()
         {
             if(Connected)
             {
@@ -247,7 +246,7 @@ namespace TCP_UDP_Tool
                 Row.Cells["Status"].Value = "Failed";
                 Row.Cells["Status"].Style.BackColor = Color.Red;
             }
-        }*/
+        }
 
         private void ShowErrorDialog(string message)
         {
