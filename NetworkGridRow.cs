@@ -99,29 +99,22 @@ namespace TCP_UDP_Tool
             }
         }
 
-        private void AcceptCallback(IAsyncResult ar)
-        {            
-            clientSocket = serverSocket.EndAccept(ar);
-            var sendData = Encoding.ASCII.GetBytes("Connected...");
-            clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
-            clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null);
-            serverSocket.BeginAccept(AcceptCallback, null);            
-        }
 
         private void AcceptCallbackServer(IAsyncResult ar)
         {
             clientSocket = serverSocket.EndAccept(ar);
-            var sendData = Encoding.ASCII.GetBytes("Connected...");
-            clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
-            clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null);
+            var sendData = Encoding.ASCII.GetBytes("Connected");
+            clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallbackTCP, null);
+            clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null); //CRASHZEILE
             serverSocket.BeginAccept(AcceptCallbackServer, null);
             
-        }        
+        }
 
-        private void SendCallback(IAsyncResult ar)
+        private void SendCallbackTCP(IAsyncResult ar)
         {
             try
             {
+                //((Socket)ar.AsyncState)
                 clientSocket.EndSend(ar);
 
             }
@@ -129,7 +122,43 @@ namespace TCP_UDP_Tool
             {
                 retryClientTCP();
             }
-        }        
+        }
+
+
+        private void ReceiveCallbackTCP(IAsyncResult ar)
+        {
+            try
+            {
+                int received = clientSocket.EndReceive(ar);
+
+                if (received == 0)
+                {
+                    return;
+                }
+                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null);
+                string message = Encoding.ASCII.GetString(buffer);
+
+                if (message == "Connected")
+                {
+                    Row.Cells["Status"].Value = message;
+                    Row.Cells["Status"].Style.BackColor = Color.LimeGreen;                    
+                    if (clientSocket != null) clientSocket.Close();
+                    if (serverSocket != null) serverSocket.Close();
+                }
+
+            }
+
+            catch (SocketException ex)
+            {
+                retryClientTCP();
+            }
+            catch (ObjectDisposedException ex)
+            {
+                retryClientTCP();
+            }
+        }
+
+           
 
         public void startClientTCP()
         {
@@ -137,8 +166,7 @@ namespace TCP_UDP_Tool
             {
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);                
                 var endPoint = new IPEndPoint(Partner.ip, Convert.ToInt32(Endpoint.port));              
-                clientSocket.BeginConnect(endPoint, ConnectCallbackClientTCP, null);
-                
+                clientSocket.BeginConnect(endPoint, ConnectCallbackClientTCP, null);                
             }
 
             catch (SocketException ex)
@@ -154,8 +182,8 @@ namespace TCP_UDP_Tool
             {
                 clientSocket.EndConnect(ar);                
                 clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null);
-                var sendData = Encoding.ASCII.GetBytes("Connected...");
-                clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallback, null);
+                var sendData = Encoding.ASCII.GetBytes("Connected");
+                clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallbackTCP, null);
             }
 
             catch (SocketException ex)
@@ -170,37 +198,7 @@ namespace TCP_UDP_Tool
         }     
         
 
-        private void ReceiveCallbackTCP(IAsyncResult ar)
-        {
-            try
-            {
-                int received = clientSocket.EndReceive(ar);
-
-                if (received == 0)
-                {
-                    return;
-                }
-                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null);
-                string message = Encoding.ASCII.GetString(buffer);
-                if(message == "Connected")
-                {
-                    Row.Cells["Status"].Value = message;
-                    Row.Cells["Status"].Style.BackColor = Color.Green;
-                    if(clientSocket != null) clientSocket.Close();
-                    if(serverSocket != null) serverSocket.Close();
-                }
-                
-            }
-
-            catch (SocketException ex)
-            {
-                retryClientTCP();
-            }
-            catch (ObjectDisposedException ex)
-            {
-                retryClientTCP();
-            }
-        }
+        
 
         public bool SocketConnectedTCP(Socket s)
         {
@@ -237,19 +235,19 @@ namespace TCP_UDP_Tool
             }
         }
 
-        public void displayStatus()
+        /*public void displayStatus()
         {
             if(Connected)
             {
                 //Row.Cells["Status"].Value = "Connected";
-                Row.Cells["Status"].Style.BackColor = Color.Green;        
+                Row.Cells["Status"].Style.BackColor = Color.LimeGreen;        
             }
             else
             {
                 Row.Cells["Status"].Value = "Failed";
                 Row.Cells["Status"].Style.BackColor = Color.Red;
             }
-        }
+        }*/
 
         private void ShowErrorDialog(string message)
         {

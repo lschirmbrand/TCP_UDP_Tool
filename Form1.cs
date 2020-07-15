@@ -96,6 +96,7 @@ namespace TCP_UDP_Tool
                             dataGV.Rows[row].Cells[0].Value = partnerarray[i].ip;
                             dataGV.Rows[row].Cells[1].Value = partnerarray[i].endpoints[j].port;
                             row++;
+                            break;
                         }                        
                     }
                     else break;
@@ -112,14 +113,14 @@ namespace TCP_UDP_Tool
             btn_Stop.Visible = true;
             label_stop.Visible = true;
             
-            if (checkClient.Checked)
+            if (checkClient.Checked == true)
             {
-                for (int i = 0; i < numberOfEndpoints; i++)
+                for (int i = 0; i < dataGV.Rows.Count - 1; i++)
                     ngr[i].ConnectAsClient();
             }
-            else
+            if(checkClient.Checked == false)
             {
-                for (int i = 0; i < numberOfEndpoints; i++)
+                for (int i = 0; i < dataGV.Rows.Count - 1; i++)
                     ngr[i].ConnectAsServer();
             }
         }
@@ -132,9 +133,6 @@ namespace TCP_UDP_Tool
             }
         }
 
-        private void label_stop_Click(object sender, EventArgs e)
-        {
-            btn_Stop_Click(sender, e);
-        }
+        
     }
 }

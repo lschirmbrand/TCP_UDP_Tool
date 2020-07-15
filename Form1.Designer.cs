@@ -32,6 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label_stop = new System.Windows.Forms.Label();
+            this.btn_Stop = new System.Windows.Forms.Button();
             this.btn_Run = new System.Windows.Forms.Button();
             this.label_run = new System.Windows.Forms.Label();
             this.dataGV = new System.Windows.Forms.DataGridView();
@@ -47,8 +49,6 @@
             this.label_export = new System.Windows.Forms.Label();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.btn_Stop = new System.Windows.Forms.Button();
-            this.label_stop = new System.Windows.Forms.Label();
             this.partnerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -81,6 +81,26 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Automatischer Mode";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label_stop
+            // 
+            this.label_stop.AutoSize = true;
+            this.label_stop.Location = new System.Drawing.Point(452, 12);
+            this.label_stop.Name = "label_stop";
+            this.label_stop.Size = new System.Drawing.Size(66, 24);
+            this.label_stop.TabIndex = 8;
+            this.label_stop.Text = "STOP:";
+            // 
+            // btn_Stop
+            // 
+            this.btn_Stop.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_Stop.BackgroundImage")));
+            this.btn_Stop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_Stop.Location = new System.Drawing.Point(526, 6);
+            this.btn_Stop.Name = "btn_Stop";
+            this.btn_Stop.Size = new System.Drawing.Size(39, 34);
+            this.btn_Stop.TabIndex = 7;
+            this.btn_Stop.UseVisualStyleBackColor = true;
+            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
             // 
             // btn_Run
             // 
@@ -231,27 +251,6 @@
             this.label1.Size = new System.Drawing.Size(91, 16);
             this.label1.TabIndex = 8;
             this.label1.Text = "PROTOKOLL:";
-            // 
-            // btn_Stop
-            // 
-            this.btn_Stop.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_Stop.BackgroundImage")));
-            this.btn_Stop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_Stop.Location = new System.Drawing.Point(526, 6);
-            this.btn_Stop.Name = "btn_Stop";
-            this.btn_Stop.Size = new System.Drawing.Size(39, 34);
-            this.btn_Stop.TabIndex = 7;
-            this.btn_Stop.UseVisualStyleBackColor = true;
-            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
-            // 
-            // label_stop
-            // 
-            this.label_stop.AutoSize = true;
-            this.label_stop.Location = new System.Drawing.Point(452, 12);
-            this.label_stop.Name = "label_stop";
-            this.label_stop.Size = new System.Drawing.Size(66, 24);
-            this.label_stop.TabIndex = 8;
-            this.label_stop.Text = "STOP:";
-            this.label_stop.Click += new System.EventHandler(this.label_stop_Click);
             // 
             // partnerBindingSource
             // 
