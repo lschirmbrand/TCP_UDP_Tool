@@ -15,15 +15,17 @@ using System.Data;
 
 namespace TCP_UDP_Tool
 {
-    public partial class Form1 : Form
+    public partial class GUI : Form
     {
         Partner[] partnerarray = new Partner[18];
         NetworkGridRow[] ngr;
         int numberOfEndpoints = 0;
 
-        public Form1()
+        public GUI()
         {
             InitializeComponent();
+            label_stop.Visible = false;
+            btn_Stop.Visible = false;
         }
 
         private void bnt_import_Click(object sender, EventArgs e)
@@ -99,11 +101,18 @@ namespace TCP_UDP_Tool
                     else break;
                 }
             }
+
+            dataGV.Visible = true;
         }       
 
         private void btn_Run_Click(object sender, EventArgs e)
         {
-            if(checkClient.Checked)
+            btn_Run.Visible = false;
+            label_run.Visible = false;
+            btn_Stop.Visible = true;
+            label_stop.Visible = true;
+            
+            if (checkClient.Checked)
             {
                 for (int i = 0; i < numberOfEndpoints; i++)
                     ngr[i].ConnectAsClient();
@@ -113,6 +122,19 @@ namespace TCP_UDP_Tool
                 for (int i = 0; i < numberOfEndpoints; i++)
                     ngr[i].ConnectAsServer();
             }
+        }
+
+        private void btn_Stop_Click(object sender, EventArgs e)
+        {
+            for (int i = 0; i<numberOfEndpoints; i++)
+            {
+                ngr[i].stopAllConnections();
+            }
+        }
+
+        private void label_stop_Click(object sender, EventArgs e)
+        {
+            btn_Stop_Click(sender, e);
         }
     }
 }

@@ -12,7 +12,6 @@ D:\Mlog\TCP_UDP_Tool\bin\Debug\TCP_UDP_Tool.exe
 D:\Mlog\TCP_UDP_Tool\bin\Debug\TCP_UDP_Tool.pdb
 D:\Mlog\TCP_UDP_Tool\bin\Debug\EPPlus.dll
 D:\Mlog\TCP_UDP_Tool\bin\Debug\EPPlus.xml
-D:\Mlog\TCP_UDP_Tool\obj\Debug\TCP_UDP_Tool.Form1.resources
 D:\Mlog\TCP_UDP_Tool\obj\Debug\TCP_UDP_Tool.Properties.Resources.resources
 D:\Mlog\TCP_UDP_Tool\obj\Debug\TCP_UDP_Tool.csproj.GenerateResource.cache
 D:\Mlog\TCP_UDP_Tool\obj\Debug\TCP_UDP_Tool.csproj.CoreCompileInputs.cache
@@ -20,3 +19,4 @@ D:\Mlog\TCP_UDP_Tool\obj\Debug\TCP_UDP_Tool.csproj.CopyComplete
 D:\Mlog\TCP_UDP_Tool\obj\Debug\TCP_UDP_Tool.exe
 D:\Mlog\TCP_UDP_Tool\obj\Debug\TCP_UDP_Tool.pdb
 D:\Mlog\TCP_UDP_Tool\obj\Debug\TCP_UDP_Tool.csprojAssemblyReference.cache
+D:\Mlog\TCP_UDP_Tool\obj\Debug\TCP_UDP_Tool.GUI.resources

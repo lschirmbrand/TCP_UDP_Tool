@@ -1,6 +1,6 @@
 ﻿namespace TCP_UDP_Tool
 {
-    partial class Form1
+    partial class GUI
     {
         /// <summary>
         /// Erforderliche Designervariable.
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.btn_Run = new System.Windows.Forms.Button();
@@ -45,9 +45,11 @@
             this.checkClient = new System.Windows.Forms.CheckBox();
             this.btn_export = new System.Windows.Forms.Button();
             this.label_export = new System.Windows.Forms.Label();
-            this.partnerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_Stop = new System.Windows.Forms.Button();
+            this.label_stop = new System.Windows.Forms.Label();
+            this.partnerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGV)).BeginInit();
@@ -67,6 +69,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label_stop);
+            this.tabPage1.Controls.Add(this.btn_Stop);
             this.tabPage1.Controls.Add(this.btn_Run);
             this.tabPage1.Controls.Add(this.label_run);
             this.tabPage1.Controls.Add(this.dataGV);
@@ -75,7 +79,7 @@
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage1.Size = new System.Drawing.Size(577, 761);
             this.tabPage1.TabIndex = 0;
-            this.tabPage1.Text = "Automatimodus";
+            this.tabPage1.Text = "Automatischer Mode";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
             // btn_Run
@@ -112,6 +116,7 @@
             this.dataGV.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.dataGV.Size = new System.Drawing.Size(554, 703);
             this.dataGV.TabIndex = 4;
+            this.dataGV.Visible = false;
             // 
             // Column1
             // 
@@ -119,6 +124,8 @@
             this.Column1.HeaderText = "IP-Adress";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
+            this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column1.Width = 200;
             // 
             // Column2
             // 
@@ -126,6 +133,8 @@
             this.Column2.HeaderText = "Ports";
             this.Column2.Name = "Column2";
             this.Column2.ReadOnly = true;
+            this.Column2.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column2.Width = 155;
             // 
             // Column3
             // 
@@ -133,6 +142,8 @@
             this.Column3.HeaderText = "Status";
             this.Column3.Name = "Column3";
             this.Column3.ReadOnly = true;
+            this.Column3.Resizable = System.Windows.Forms.DataGridViewTriState.False;
+            this.Column3.Width = 200;
             // 
             // tabPage2
             // 
@@ -200,17 +211,13 @@
             this.label_export.TabIndex = 6;
             this.label_export.Text = "EXPORT DATA";
             // 
-            // partnerBindingSource
-            // 
-            this.partnerBindingSource.DataSource = typeof(TCP_UDP_Tool.Partner);
-            // 
             // comboBox1
             // 
             this.comboBox1.FormattingEnabled = true;
             this.comboBox1.Items.AddRange(new object[] {
             "tcp",
             "udp"});
-            this.comboBox1.Location = new System.Drawing.Point(427, 887);
+            this.comboBox1.Location = new System.Drawing.Point(427, 879);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(154, 21);
             this.comboBox1.TabIndex = 7;
@@ -219,13 +226,38 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(330, 888);
+            this.label1.Location = new System.Drawing.Point(330, 880);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 16);
             this.label1.TabIndex = 8;
             this.label1.Text = "PROTOKOLL:";
             // 
-            // Form1
+            // btn_Stop
+            // 
+            this.btn_Stop.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_Stop.BackgroundImage")));
+            this.btn_Stop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_Stop.Location = new System.Drawing.Point(526, 6);
+            this.btn_Stop.Name = "btn_Stop";
+            this.btn_Stop.Size = new System.Drawing.Size(39, 34);
+            this.btn_Stop.TabIndex = 7;
+            this.btn_Stop.UseVisualStyleBackColor = true;
+            this.btn_Stop.Click += new System.EventHandler(this.btn_Stop_Click);
+            // 
+            // label_stop
+            // 
+            this.label_stop.AutoSize = true;
+            this.label_stop.Location = new System.Drawing.Point(452, 12);
+            this.label_stop.Name = "label_stop";
+            this.label_stop.Size = new System.Drawing.Size(66, 24);
+            this.label_stop.TabIndex = 8;
+            this.label_stop.Text = "STOP:";
+            this.label_stop.Click += new System.EventHandler(this.label_stop_Click);
+            // 
+            // partnerBindingSource
+            // 
+            this.partnerBindingSource.DataSource = typeof(TCP_UDP_Tool.Partner);
+            // 
+            // GUI
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -239,8 +271,11 @@
             this.Controls.Add(this.checkClient);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tab1);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Name = "Form1";
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
+            this.MaximumSize = new System.Drawing.Size(625, 964);
+            this.MinimumSize = new System.Drawing.Size(625, 964);
+            this.Name = "GUI";
             this.Text = "Form1";
             this.tab1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
@@ -264,14 +299,16 @@
         private System.Windows.Forms.Button btn_export;
         private System.Windows.Forms.Label label_export;
         private System.Windows.Forms.DataGridView dataGV;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
         private System.Windows.Forms.BindingSource partnerBindingSource;
         private System.Windows.Forms.Button btn_Run;
         private System.Windows.Forms.Label label_run;
         private System.Windows.Forms.ComboBox comboBox1;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.Label label_stop;
+        private System.Windows.Forms.Button btn_Stop;
     }
 }
 
