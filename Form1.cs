@@ -26,6 +26,8 @@ namespace TCP_UDP_Tool
         {
             InitializeComponent();
             label_stop.Visible = false;
+            btn_Run.Enabled = false;
+            btn_Run_Selected.Enabled = false;
             btn_Stop.Visible = false;
             btn_export.Enabled = false;
             pick_protocol.SelectedItem = "tcp";
@@ -34,6 +36,8 @@ namespace TCP_UDP_Tool
         private void bnt_import_Click(object sender, EventArgs e)
         {
             bnt_import.Enabled = false;
+            txt_Instruction.Visible = false;
+            btn_Run_Selected.Enabled = false;
             openFileDialog1.InitialDirectory = "c:\\Desktop\\";
             openFileDialog1.Filter = "xlsx files (*.xlsx)|";
             openFileDialog1.FilterIndex = 2;
@@ -46,8 +50,9 @@ namespace TCP_UDP_Tool
             excelread.setcomboBoxText(pick_protocol.Text);
             excelread.startReading(filePath);
             this.partnerarray = excelread.retPartnerarray();
-
             checkbox = new CheckBox[partnerarray.Length];
+            btn_Run_Selected.Enabled = true;
+            btn_Run.Enabled = true;
             formBuildUp();
         }
 
@@ -146,6 +151,7 @@ namespace TCP_UDP_Tool
             for (int i = 0; i<numberOfEndpoints; i++)
             {
                 ngr[i].stopAllConnections();
+                btn_Run_Selected.Enabled = false;
                 btn_export.Enabled = true;
                 btn_Stop.Visible = false;
                 label_stop.Text = "Stopped.";
@@ -165,6 +171,7 @@ namespace TCP_UDP_Tool
 
         private void btn_Run_Selected_Click(object sender, EventArgs e)
         {
+            btn_Stop.Enabled = true;
 
             for (int i = 0; i < ngr.Length; i++)
             {
