@@ -23,6 +23,8 @@ namespace TCP_UDP_Tool
         bool udpWorked = false;
         string receiveString = string.Empty;
         bool alreadyDone = false;
+        bool alreadyThrownSocketException = false;
+        bool alreadyThrownObjectException = false;
 
         public NetworkGridRow(Partner partner, Endpoint endpoint, DataGridViewRow row)
         {
@@ -93,7 +95,7 @@ namespace TCP_UDP_Tool
                 {
                     serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     //serverSocket.Bind(new System.Net.IPEndPoint(IPAddress.Any, Convert.ToInt32(Endpoint.port)));
-                    serverSocket.Bind(new System.Net.IPEndPoint(IPAddress.Parse("127.0.0.1"), Convert.ToInt32(Endpoint.port)));
+                    serverSocket.Bind(new System.Net.IPEndPoint(Partner.ip, Convert.ToInt32(Endpoint.port)));
                     serverSocket.Listen(50);
                     serverSocket.BeginAccept(AcceptCallbackServer, null);
                     alreadyDone = true;
@@ -102,11 +104,19 @@ namespace TCP_UDP_Tool
 
             catch (SocketException ex)
             {
-                ShowErrorDialog(ex.Message);
+                if (!alreadyThrownSocketException)
+                {
+                    //alreadyThrownSocketException = true;
+                    ShowErrorDialog(ex.Message);
+                }
             }
             catch (ObjectDisposedException ex)
             {
-                ShowErrorDialog(ex.Message + "test");
+                if (!alreadyThrownObjectException)
+                {
+                    //alreadyThrownObjectException = true;
+                    ShowErrorDialog(ex.Message);
+                }
             }
         }
 

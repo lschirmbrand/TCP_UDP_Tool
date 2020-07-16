@@ -171,7 +171,7 @@ namespace TCP_UDP_Tool
 
         private void btn_Run_Selected_Click(object sender, EventArgs e)
         {
-            btn_Stop.Enabled = true;
+            btn_Stop.Visible = true;
 
             for (int i = 0; i < ngr.Length; i++)
             {
