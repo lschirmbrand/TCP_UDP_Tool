@@ -15,9 +15,14 @@ namespace TCP_UDP_Tool
 
         public Socket clientSocket;
         public Socket serverSocket;
+        public UdpClient u;
+        public IPEndPoint e;
         public bool stopped = false;
         Byte[] buffer = new Byte[9];
         public string messagereceived;
+        bool udpWorked = false;
+        string receiveString = string.Empty;
+        bool alreadyDone = false;
 
         public NetworkGridRow(Partner partner, Endpoint endpoint, DataGridViewRow row)
         {
@@ -63,30 +68,36 @@ namespace TCP_UDP_Tool
 
             //if(Endpoint.mode == Endpoint.modeE.client)
             //{
-            if (Endpoint.protocol == Endpoint.protocolE.tcp)
+                if (Endpoint.protocol == Endpoint.protocolE.tcp)
                 {
                     startServerTCP();
                 }
 
                 else if(Endpoint.protocol == Endpoint.protocolE.udp)
                 {
-                    throw new NotImplementedException();
+                    startClientUDP();
                 }
             //}
             //else if(Endpoint.mode == Endpoint.modeE.server)
             //{
 
-            //}
+            //}               
         }
+        
 
         private void startServerTCP()
         {
             try
             {
-                serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                serverSocket.Bind(new System.Net.IPEndPoint(IPAddress.Any, Convert.ToInt32(Endpoint.port)));
-                serverSocket.Listen(50);
-                serverSocket.BeginAccept(AcceptCallbackServer, null);                
+                if (!alreadyDone)
+                {
+                    serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                    //serverSocket.Bind(new System.Net.IPEndPoint(IPAddress.Any, Convert.ToInt32(Endpoint.port)));
+                    serverSocket.Bind(new System.Net.IPEndPoint(IPAddress.Parse("127.0.0.1"), Convert.ToInt32(Endpoint.port)));
+                    serverSocket.Listen(50);
+                    serverSocket.BeginAccept(AcceptCallbackServer, null);
+                    alreadyDone = true;
+                }
             }
 
             catch (SocketException ex)
@@ -95,7 +106,7 @@ namespace TCP_UDP_Tool
             }
             catch (ObjectDisposedException ex)
             {
-                ShowErrorDialog(ex.Message);
+                ShowErrorDialog(ex.Message + "test");
             }
         }
 
@@ -130,19 +141,23 @@ namespace TCP_UDP_Tool
         {
             try
             {
-                int received = clientSocket.EndReceive(ar);
-
-                if (received == 0)
+                if (clientSocket != null)
                 {
-                    return;
-                }
-                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null);
-                string message = Encoding.ASCII.GetString(buffer);
+                    int received = clientSocket.EndReceive(ar);
 
-                if (message == "Connected")
-                {
-                    Row.Cells["Status"].Value = message;
-                    Row.Cells["Status"].Style.BackColor = Color.LimeGreen;
+                    if (received == 0)
+                    {
+                        return;
+                    }
+                    clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null);
+                    string message = Encoding.ASCII.GetString(buffer);
+
+                    if (message == "Connected")
+                    {
+                        Row.Cells["Status"].Value = message;
+                        Row.Cells["Status"].Style.BackColor = Color.LimeGreen;
+                        Connected = true;
+                    }
                 }
 
             }
@@ -164,7 +179,8 @@ namespace TCP_UDP_Tool
             try
             {
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);                
-                var endPoint = new IPEndPoint(Partner.ip, Convert.ToInt32(Endpoint.port));              
+                //var endPoint = new IPEndPoint(Partner.ip, Convert.ToInt32(Endpoint.port));             
+                var endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), Convert.ToInt32(Endpoint.port));             
                 clientSocket.BeginConnect(endPoint, ConnectCallbackClientTCP, null);                
             }
 
@@ -194,10 +210,21 @@ namespace TCP_UDP_Tool
             {
                 retryClientTCP();
             }
-        }     
-        
+        }
 
-        
+        public void startManuelServer()
+        {
+            Row.Cells["Status"].Value = "Connecting...";
+            Row.Cells["Status"].Style.BackColor = Color.Orange;
+            startServerTCP();
+        }
+
+        public void startManuelClient()
+        {
+            Row.Cells["Status"].Value = "Connecting...";
+            Row.Cells["Status"].Style.BackColor = Color.Orange;
+            startClientTCP();           
+        }
 
         public bool SocketConnectedTCP(Socket s)
         {
@@ -221,18 +248,14 @@ namespace TCP_UDP_Tool
 
         public void startClientUDP()
         {
-            UdpClient udpClient = new UdpClient();
-
-            try 
-            {
-                udpClient.Connect(Partner.ip, Convert.ToInt32(Endpoint.port));            
-            }
-
-            catch
-            {
-
-            }
+                     
         }
+
+        public void startListenerUDP()
+        {
+            
+        }
+        
 
         public void displayStatus()
         {
@@ -252,11 +275,6 @@ namespace TCP_UDP_Tool
         {
             MessageBox.Show(message, Application.ProductName, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
-
-
-
-        
-
 
         public void stopAllConnections()
         {

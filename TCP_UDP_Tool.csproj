@@ -54,6 +54,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="dataSource.cs" />
+    <Compile Include="Exporter.cs" />
     <Compile Include="NetworkGridRow.cs" />
     <Compile Include="Partner.cs" />
     <Compile Include="Excelreader.cs" />

@@ -10,21 +10,18 @@ namespace TCP_UDP_Tool
     public class Partner
     {
         public IPAddress ip;
-        public Endpoint[] endpoints = new Endpoint[25];
+        public Endpoint[] endpoints = new Endpoint[3000];
+        string protocol;       
 
-        public Partner()
-        {
-
-        }
-
-        public Partner(string IP, string portsstring)
+        public Partner(string IP, string portsstring, string protocol)
         {
             this.ip = IPAddress.Parse(IP);
-            String[] portssplit = stringSplitter(portsstring);            
+            String[] portssplit = stringSplitter(portsstring);
+            this.protocol = protocol;
 
             for(int i = 0; i<portssplit.Length; i++)
             {
-                endpoints[i] = new Endpoint(portssplit[i], "tcp", "client");
+                endpoints[i] = new Endpoint(portssplit[i], protocol, "client");
             }
 
             endpoints = endpoints.Where(c => c != null).ToArray();  
@@ -70,6 +67,11 @@ namespace TCP_UDP_Tool
                 if (portsSplit[i] == "") portsSplit[i] = null;
             }
             return portsSplit;
+        }
+
+        public void setcomboBoxText(string protocol)
+        {
+            this.protocol = protocol;
         }
     }
 }

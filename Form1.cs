@@ -19,17 +19,21 @@ namespace TCP_UDP_Tool
     {
         Partner[] partnerarray = new Partner[18];
         NetworkGridRow[] ngr;
-        int numberOfEndpoints = 0;
+        CheckBox[] checkbox; 
+        int numberOfEndpoints = 0;        
 
         public GUI()
         {
             InitializeComponent();
             label_stop.Visible = false;
             btn_Stop.Visible = false;
+            btn_export.Enabled = false;
+            pick_protocol.SelectedItem = "tcp";
         }
 
         private void bnt_import_Click(object sender, EventArgs e)
-        {                
+        {
+            bnt_import.Enabled = false;
             openFileDialog1.InitialDirectory = "c:\\Desktop\\";
             openFileDialog1.Filter = "xlsx files (*.xlsx)|";
             openFileDialog1.FilterIndex = 2;
@@ -39,9 +43,11 @@ namespace TCP_UDP_Tool
             string filePath = openFileDialog1.FileName;
 
             Excelreader excelread = new Excelreader();
+            excelread.setcomboBoxText(pick_protocol.Text);
             excelread.startReading(filePath);
             this.partnerarray = excelread.retPartnerarray();
 
+            checkbox = new CheckBox[partnerarray.Length];
             formBuildUp();
         }
 
@@ -57,7 +63,7 @@ namespace TCP_UDP_Tool
 
             ngr = new NetworkGridRow[numberOfEndpoints];            
 
-            dataGV.ColumnCount = 3;
+            dataGV.ColumnCount = 4;
             dataGV.ColumnHeadersDefaultCellStyle.BackColor = Color.Navy;
             dataGV.ColumnHeadersDefaultCellStyle.ForeColor = Color.White;
             dataGV.ColumnHeadersDefaultCellStyle.Font = new Font(dataGV.Font, FontStyle.Bold);
@@ -67,16 +73,19 @@ namespace TCP_UDP_Tool
             dataGV.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataGV.CellBorderStyle = DataGridViewCellBorderStyle.Single;
             dataGV.GridColor = Color.Black;
-            dataGV.RowHeadersVisible = false;            
+            dataGV.RowHeadersVisible = false;
 
-            dataGV.Columns[0].Name = "IP-Adress";
-            dataGV.Columns[0].Width = 200;
-            dataGV.Columns[1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-            dataGV.Columns[1].Name = "Ports";
-            dataGV.Columns[1].Width = 155;
-            dataGV.Columns[2].Name = "Status";
-            dataGV.Columns[2].Width = 200;
-            dataGV.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;            
+            dataGV.Columns[0].Name = "";
+            dataGV.Columns[0].Width = 50;
+            dataGV.Columns[0].ReadOnly = true;
+            dataGV.Columns[1].Name = "IP-Address";
+            dataGV.Columns[1].Width = 200;
+            dataGV.Columns[2].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+            dataGV.Columns[2].Name = "Ports";
+            dataGV.Columns[2].Width = 125;
+            dataGV.Columns[3].Name = "Status";
+            dataGV.Columns[3].Width = 140;
+            dataGV.Columns[3].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;            
 
             int row = 0;
 
@@ -90,11 +99,17 @@ namespace TCP_UDP_Tool
                     {
                         if (partnerarray[i].endpoints[j].port != null)
                         {
-                            dataGV.Rows.Add(1);
+                            if(!(i==partnerarray.Length-1 && j==partnerarray[i].endpoints.Length-1))dataGV.Rows.Add(1);
+
                             ngr[row] = new NetworkGridRow(partnerarray[i], partnerarray[i].endpoints[j], dataGV.Rows[row]);
 
-                            dataGV.Rows[row].Cells[0].Value = partnerarray[i].ip;
-                            dataGV.Rows[row].Cells[1].Value = partnerarray[i].endpoints[j].port;
+
+                            checkbox[i] = new CheckBox();
+                            checkbox[i].Location = new Point(20, i*50+50);
+
+                            dataGV.Rows[row].Cells[0].Value = row;
+                            dataGV.Rows[row].Cells["IP-Address"].Value = partnerarray[i].ip;
+                            dataGV.Rows[row].Cells["Ports"].Value = partnerarray[i].endpoints[j].port;
                             row++;
                             //break;
                         }                        
@@ -103,6 +118,7 @@ namespace TCP_UDP_Tool
                 }
             }
 
+            
             dataGV.Visible = true;
         }       
 
@@ -130,9 +146,39 @@ namespace TCP_UDP_Tool
             for (int i = 0; i<numberOfEndpoints; i++)
             {
                 ngr[i].stopAllConnections();
+                btn_export.Enabled = true;
+                btn_Stop.Visible = false;
+                label_stop.Text = "Stopped.";
             }
         }
 
-        
+        private void btn_export_Click(object sender, EventArgs e)
+        {
+            FolderBrowserDialog folderBrowserDialog = new FolderBrowserDialog();
+            folderBrowserDialog.Description = "Ordner für den Export auswählen";
+            folderBrowserDialog.ShowDialog();
+            string filePath = folderBrowserDialog.SelectedPath;           
+
+            Exporter export = new Exporter();
+            export.startExport(ngr, filePath);
+        }
+
+        private void btn_Run_Selected_Click(object sender, EventArgs e)
+        {
+
+            for (int i = 0; i < ngr.Length; i++)
+            {
+                if (checkClient.Checked == false)
+                {
+                    if (dataGV.Rows[i].Cells[1].Selected == true)
+                        ngr[i].startManuelServer();
+                }
+                else
+                {
+                    if (dataGV.Rows[i].Cells[0].Selected == true)
+                        ngr[i].startManuelClient();
+                }                
+            }
+        }
     }
 }

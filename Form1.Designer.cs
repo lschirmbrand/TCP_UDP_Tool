@@ -32,27 +32,34 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.label2 = new System.Windows.Forms.Label();
+            this.btn_Run_Selected = new System.Windows.Forms.Button();
             this.label_stop = new System.Windows.Forms.Label();
             this.btn_Stop = new System.Windows.Forms.Button();
             this.btn_Run = new System.Windows.Forms.Button();
             this.label_run = new System.Windows.Forms.Label();
             this.dataGV = new System.Windows.Forms.DataGridView();
+            this.Checkbox = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column1 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.button1 = new System.Windows.Forms.Button();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
             this.bnt_import = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.label4 = new System.Windows.Forms.Label();
             this.checkClient = new System.Windows.Forms.CheckBox();
             this.btn_export = new System.Windows.Forms.Button();
             this.label_export = new System.Windows.Forms.Label();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
+            this.pick_protocol = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
             this.partnerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGV)).BeginInit();
+            this.tabPage2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.partnerBindingSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -69,6 +76,8 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.btn_Run_Selected);
             this.tabPage1.Controls.Add(this.label_stop);
             this.tabPage1.Controls.Add(this.btn_Stop);
             this.tabPage1.Controls.Add(this.btn_Run);
@@ -81,6 +90,26 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Automatischer Mode";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(8, 11);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(159, 24);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "RUN SELECTED:";
+            // 
+            // btn_Run_Selected
+            // 
+            this.btn_Run_Selected.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_Run_Selected.BackgroundImage")));
+            this.btn_Run_Selected.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.btn_Run_Selected.Location = new System.Drawing.Point(173, 6);
+            this.btn_Run_Selected.Name = "btn_Run_Selected";
+            this.btn_Run_Selected.Size = new System.Drawing.Size(41, 36);
+            this.btn_Run_Selected.TabIndex = 9;
+            this.btn_Run_Selected.UseVisualStyleBackColor = true;
+            this.btn_Run_Selected.Click += new System.EventHandler(this.btn_Run_Selected_Click);
             // 
             // label_stop
             // 
@@ -95,7 +124,7 @@
             // 
             this.btn_Stop.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_Stop.BackgroundImage")));
             this.btn_Stop.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btn_Stop.Location = new System.Drawing.Point(526, 6);
+            this.btn_Stop.Location = new System.Drawing.Point(524, 6);
             this.btn_Stop.Name = "btn_Stop";
             this.btn_Stop.Size = new System.Drawing.Size(39, 34);
             this.btn_Stop.TabIndex = 7;
@@ -128,20 +157,29 @@
             this.dataGV.BackgroundColor = System.Drawing.SystemColors.ButtonHighlight;
             this.dataGV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGV.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Checkbox,
             this.Column1,
             this.Column2,
             this.Column3});
-            this.dataGV.Location = new System.Drawing.Point(11, 48);
+            this.dataGV.Location = new System.Drawing.Point(12, 46);
             this.dataGV.Name = "dataGV";
             this.dataGV.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.dataGV.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
             this.dataGV.Size = new System.Drawing.Size(554, 703);
             this.dataGV.TabIndex = 4;
             this.dataGV.Visible = false;
             // 
+            // Checkbox
+            // 
+            this.Checkbox.Frozen = true;
+            this.Checkbox.HeaderText = "";
+            this.Checkbox.Name = "Checkbox";
+            this.Checkbox.Width = 30;
+            // 
             // Column1
             // 
             this.Column1.Frozen = true;
-            this.Column1.HeaderText = "IP-Adress";
+            this.Column1.HeaderText = "IP-Address";
             this.Column1.Name = "Column1";
             this.Column1.ReadOnly = true;
             this.Column1.Resizable = System.Windows.Forms.DataGridViewTriState.False;
@@ -167,6 +205,9 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.button1);
+            this.tabPage2.Controls.Add(this.textBox2);
+            this.tabPage2.Controls.Add(this.textBox1);
             this.tabPage2.Location = new System.Drawing.Point(4, 33);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
@@ -175,9 +216,33 @@
             this.tabPage2.Text = "Manueller Mode";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(433, 52);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(133, 29);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(273, 52);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(132, 29);
+            this.textBox2.TabIndex = 1;
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(11, 52);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(227, 29);
+            this.textBox1.TabIndex = 0;
+            // 
             // bnt_import
             // 
-            this.bnt_import.Location = new System.Drawing.Point(16, 879);
+            this.bnt_import.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.bnt_import.Location = new System.Drawing.Point(27, 879);
             this.bnt_import.Name = "bnt_import";
             this.bnt_import.Size = new System.Drawing.Size(216, 34);
             this.bnt_import.TabIndex = 3;
@@ -215,42 +280,44 @@
             this.btn_export.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("btn_export.BackgroundImage")));
             this.btn_export.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
             this.btn_export.ForeColor = System.Drawing.Color.Black;
-            this.btn_export.Location = new System.Drawing.Point(463, 26);
+            this.btn_export.Location = new System.Drawing.Point(542, 26);
             this.btn_export.Name = "btn_export";
             this.btn_export.Size = new System.Drawing.Size(40, 41);
             this.btn_export.TabIndex = 5;
             this.btn_export.UseVisualStyleBackColor = false;
+            this.btn_export.Click += new System.EventHandler(this.btn_export_Click);
             // 
             // label_export
             // 
             this.label_export.AutoSize = true;
             this.label_export.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label_export.Location = new System.Drawing.Point(312, 32);
+            this.label_export.Location = new System.Drawing.Point(391, 32);
             this.label_export.Name = "label_export";
             this.label_export.Size = new System.Drawing.Size(145, 24);
             this.label_export.TabIndex = 6;
             this.label_export.Text = "EXPORT DATA";
             // 
-            // comboBox1
+            // pick_protocol
             // 
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
+            this.pick_protocol.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.pick_protocol.FormattingEnabled = true;
+            this.pick_protocol.Items.AddRange(new object[] {
             "tcp",
             "udp"});
-            this.comboBox1.Location = new System.Drawing.Point(427, 879);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(154, 21);
-            this.comboBox1.TabIndex = 7;
+            this.pick_protocol.Location = new System.Drawing.Point(427, 879);
+            this.pick_protocol.Name = "pick_protocol";
+            this.pick_protocol.Size = new System.Drawing.Size(154, 28);
+            this.pick_protocol.TabIndex = 7;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(330, 880);
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(321, 882);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(91, 16);
+            this.label1.Size = new System.Drawing.Size(100, 20);
             this.label1.TabIndex = 8;
-            this.label1.Text = "PROTOKOLL:";
+            this.label1.Text = "PROTOCOL:";
             // 
             // partnerBindingSource
             // 
@@ -263,7 +330,7 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(609, 925);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.comboBox1);
+            this.Controls.Add(this.pick_protocol);
             this.Controls.Add(this.label_export);
             this.Controls.Add(this.bnt_import);
             this.Controls.Add(this.btn_export);
@@ -271,15 +338,18 @@
             this.Controls.Add(this.label4);
             this.Controls.Add(this.tab1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(625, 964);
             this.MinimumSize = new System.Drawing.Size(625, 964);
             this.Name = "GUI";
-            this.Text = "Form1";
+            this.Text = "TCP/UDP-Testtool";
             this.tab1.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGV)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.partnerBindingSource)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -301,13 +371,19 @@
         private System.Windows.Forms.BindingSource partnerBindingSource;
         private System.Windows.Forms.Button btn_Run;
         private System.Windows.Forms.Label label_run;
-        private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.ComboBox pick_protocol;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label_stop;
+        private System.Windows.Forms.Button btn_Stop;
+        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Checkbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.Label label_stop;
-        private System.Windows.Forms.Button btn_Stop;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button btn_Run_Selected;
     }
 }
 
