@@ -95,7 +95,7 @@ namespace TCP_UDP_Tool
                 {
                     serverSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
                     //serverSocket.Bind(new System.Net.IPEndPoint(IPAddress.Any, Convert.ToInt32(Endpoint.port)));
-                    serverSocket.Bind(new System.Net.IPEndPoint(Partner.ip, Convert.ToInt32(Endpoint.port)));
+                    serverSocket.Bind(new System.Net.IPEndPoint(IPAddress.Any, Convert.ToInt32(Endpoint.port)));
                     serverSocket.Listen(50);
                     serverSocket.BeginAccept(AcceptCallbackServer, null);
                     alreadyDone = true;
