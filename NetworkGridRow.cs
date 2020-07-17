@@ -106,7 +106,7 @@ namespace TCP_UDP_Tool
             {
                 if (!alreadyThrownSocketException)
                 {
-                    alreadyThrownSocketException = true;
+                    //alreadyThrownSocketException = true;
                     ShowErrorDialog(ex.Message);
                 }
             }
@@ -114,7 +114,7 @@ namespace TCP_UDP_Tool
             {
                 if (!alreadyThrownObjectException)
                 {
-                    alreadyThrownObjectException = true;
+                    //alreadyThrownObjectException = true;
                     ShowErrorDialog(ex.Message);
                 }
             }
@@ -309,10 +309,10 @@ namespace TCP_UDP_Tool
                 clientSocket.Close();
             }
 
-            if (serverSocket != null)
+            /*if (serverSocket != null)
             {                
                 serverSocket.Close();               
-            }
+            }*/
         }
     }
 }
