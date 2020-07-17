@@ -133,6 +133,8 @@ namespace TCP_UDP_Tool
             label_run.Visible = false;
             btn_Stop.Visible = true;
             label_stop.Visible = true;
+            btn_Run_Selected.Visible = false;
+            label_run_selected.Visible = false;
             
             if (checkClient.Checked == true)
             {

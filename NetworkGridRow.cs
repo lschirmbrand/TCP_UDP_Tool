@@ -205,10 +205,13 @@ namespace TCP_UDP_Tool
         {
             try
             {
-                clientSocket.EndConnect(ar);                
-                clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null);
-                var sendData = Encoding.ASCII.GetBytes("Connected");
-                clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallbackTCP, null);
+                if (clientSocket != null)
+                {
+                    clientSocket.EndConnect(ar);
+                    clientSocket.BeginReceive(buffer, 0, buffer.Length, SocketFlags.None, ReceiveCallbackTCP, null);
+                    var sendData = Encoding.ASCII.GetBytes("Connected");
+                    clientSocket.BeginSend(sendData, 0, sendData.Length, SocketFlags.None, SendCallbackTCP, null);
+                }
             }
 
             catch (SocketException ex)
@@ -299,6 +302,10 @@ namespace TCP_UDP_Tool
                 Row.Cells["Status"].Value = "stopped/Failed";
                 Row.Cells["Status"].Style.BackColor = Color.Red;
             }
+            if (clientSocket != null)
+                clientSocket.Close();
+            if (serverSocket != null)
+                clientSocket.Close();
         }
     }
 }

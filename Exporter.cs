@@ -30,8 +30,17 @@ namespace TCP_UDP_Tool
             success += "\r\n\r\n";
             failed += "\r\n\r\n";
             string textOutput = failed + success;
+            DateTime datetime = new DateTime();
+            datetime = DateTime.Now;
+            string outputFilename = "Exporter_"+datetime;
+            outputFilename = outputFilename.Replace(".", "_");
+            outputFilename = outputFilename.Replace(" ", "_");
+            outputFilename = outputFilename.Replace(":", "_");
+            
+            outputFilename += ".txt";
+            
 
-            using (StreamWriter outputFile = new StreamWriter(Path.Combine(filePath, "Export.txt")))
+            using (StreamWriter outputFile = new StreamWriter(Path.Combine(filePath, outputFilename)))
             {               
                 outputFile.Write(textOutput);
             }

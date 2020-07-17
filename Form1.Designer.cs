@@ -32,7 +32,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GUI));
             this.tab1 = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.label2 = new System.Windows.Forms.Label();
+            this.txt_Instruction = new System.Windows.Forms.TextBox();
+            this.label_run_selected = new System.Windows.Forms.Label();
             this.btn_Run_Selected = new System.Windows.Forms.Button();
             this.label_stop = new System.Windows.Forms.Label();
             this.btn_Stop = new System.Windows.Forms.Button();
@@ -51,7 +52,6 @@
             this.label_export = new System.Windows.Forms.Label();
             this.pick_protocol = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.txt_Instruction = new System.Windows.Forms.TextBox();
             this.partnerBindingSource = new System.Windows.Forms.BindingSource(this.components);
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -72,7 +72,7 @@
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.txt_Instruction);
-            this.tabPage1.Controls.Add(this.label2);
+            this.tabPage1.Controls.Add(this.label_run_selected);
             this.tabPage1.Controls.Add(this.btn_Run_Selected);
             this.tabPage1.Controls.Add(this.label_stop);
             this.tabPage1.Controls.Add(this.btn_Stop);
@@ -87,14 +87,24 @@
             this.tabPage1.Text = "Automatischer Mode";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
-            // label2
+            // txt_Instruction
             // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(8, 11);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(159, 24);
-            this.label2.TabIndex = 10;
-            this.label2.Text = "RUN SELECTED:";
+            this.txt_Instruction.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txt_Instruction.Location = new System.Drawing.Point(66, 152);
+            this.txt_Instruction.Multiline = true;
+            this.txt_Instruction.Name = "txt_Instruction";
+            this.txt_Instruction.Size = new System.Drawing.Size(451, 554);
+            this.txt_Instruction.TabIndex = 11;
+            this.txt_Instruction.Text = resources.GetString("txt_Instruction.Text");
+            // 
+            // label_run_selected
+            // 
+            this.label_run_selected.AutoSize = true;
+            this.label_run_selected.Location = new System.Drawing.Point(8, 11);
+            this.label_run_selected.Name = "label_run_selected";
+            this.label_run_selected.Size = new System.Drawing.Size(159, 24);
+            this.label_run_selected.TabIndex = 10;
+            this.label_run_selected.Text = "RUN SELECTED:";
             // 
             // btn_Run_Selected
             // 
@@ -279,16 +289,6 @@
             this.label1.TabIndex = 8;
             this.label1.Text = "PROTOCOL:";
             // 
-            // txt_Instruction
-            // 
-            this.txt_Instruction.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txt_Instruction.Location = new System.Drawing.Point(66, 152);
-            this.txt_Instruction.Multiline = true;
-            this.txt_Instruction.Name = "txt_Instruction";
-            this.txt_Instruction.Size = new System.Drawing.Size(451, 554);
-            this.txt_Instruction.TabIndex = 11;
-            this.txt_Instruction.Text = resources.GetString("txt_Instruction.Text");
-            // 
             // partnerBindingSource
             // 
             this.partnerBindingSource.DataSource = typeof(TCP_UDP_Tool.Partner);
@@ -346,7 +346,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
-        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label label_run_selected;
         private System.Windows.Forms.Button btn_Run_Selected;
         private System.Windows.Forms.TextBox txt_Instruction;
     }
