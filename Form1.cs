@@ -136,12 +136,12 @@ namespace TCP_UDP_Tool
             
             if (checkClient.Checked == true)
             {
-                for (int i = 0; i < dataGV.Rows.Count - 1; i++)
+                for (int i = 0; i < dataGV.Rows.Count; i++)
                     ngr[i].ConnectAsClient();
             }
             if(checkClient.Checked == false)
             {
-                for (int i = 0; i < dataGV.Rows.Count - 1; i++)
+                for (int i = 0; i < dataGV.Rows.Count; i++)
                     ngr[i].ConnectAsServer();
             }
         }
