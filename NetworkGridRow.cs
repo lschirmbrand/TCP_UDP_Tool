@@ -190,7 +190,7 @@ namespace TCP_UDP_Tool
             {
                 clientSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);                
                 //var endPoint = new IPEndPoint(Partner.ip, Convert.ToInt32(Endpoint.port));             
-                var endPoint = new IPEndPoint(IPAddress.Parse("127.0.0.1"), Convert.ToInt32(Endpoint.port));             
+                var endPoint = new IPEndPoint(Partner.ip, Convert.ToInt32(Endpoint.port));             
                 clientSocket.BeginConnect(endPoint, ConnectCallbackClientTCP, null);                
             }
 
