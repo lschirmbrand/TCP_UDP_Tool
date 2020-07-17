@@ -52,16 +52,23 @@
             this.label_export = new System.Windows.Forms.Label();
             this.pick_protocol = new System.Windows.Forms.ComboBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btn_AddRow = new System.Windows.Forms.Button();
             this.partnerBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.dataGV2 = new System.Windows.Forms.DataGridView();
+            this.btn_lookForPorts = new System.Windows.Forms.Button();
             this.tab1.SuspendLayout();
             this.tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGV)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.partnerBindingSource)).BeginInit();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGV2)).BeginInit();
             this.SuspendLayout();
             // 
             // tab1
             // 
             this.tab1.Controls.Add(this.tabPage1);
+            this.tab1.Controls.Add(this.tabPage2);
             this.tab1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tab1.Location = new System.Drawing.Point(12, 71);
             this.tab1.Name = "tab1";
@@ -212,9 +219,9 @@
             // bnt_import
             // 
             this.bnt_import.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.bnt_import.Location = new System.Drawing.Point(27, 879);
+            this.bnt_import.Location = new System.Drawing.Point(16, 875);
             this.bnt_import.Name = "bnt_import";
-            this.bnt_import.Size = new System.Drawing.Size(216, 34);
+            this.bnt_import.Size = new System.Drawing.Size(139, 34);
             this.bnt_import.TabIndex = 3;
             this.bnt_import.Text = "Import Filedtata";
             this.bnt_import.UseVisualStyleBackColor = true;
@@ -274,24 +281,69 @@
             this.pick_protocol.Items.AddRange(new object[] {
             "tcp",
             "udp"});
-            this.pick_protocol.Location = new System.Drawing.Point(427, 879);
+            this.pick_protocol.Location = new System.Drawing.Point(474, 879);
             this.pick_protocol.Name = "pick_protocol";
-            this.pick_protocol.Size = new System.Drawing.Size(154, 28);
+            this.pick_protocol.Size = new System.Drawing.Size(123, 28);
             this.pick_protocol.TabIndex = 7;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(321, 882);
+            this.label1.Location = new System.Drawing.Point(364, 882);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(100, 20);
             this.label1.TabIndex = 8;
             this.label1.Text = "PROTOCOL:";
             // 
+            // btn_AddRow
+            // 
+            this.btn_AddRow.BackColor = System.Drawing.Color.Transparent;
+            this.btn_AddRow.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btn_AddRow.Location = new System.Drawing.Point(189, 876);
+            this.btn_AddRow.Name = "btn_AddRow";
+            this.btn_AddRow.Size = new System.Drawing.Size(154, 34);
+            this.btn_AddRow.TabIndex = 12;
+            this.btn_AddRow.Text = "Add Row";
+            this.btn_AddRow.UseVisualStyleBackColor = false;
+            this.btn_AddRow.Click += new System.EventHandler(this.btn_AddRow_Click);
+            // 
             // partnerBindingSource
             // 
             this.partnerBindingSource.DataSource = typeof(TCP_UDP_Tool.Partner);
+            // 
+            // tabPage2
+            // 
+            this.tabPage2.Controls.Add(this.btn_lookForPorts);
+            this.tabPage2.Controls.Add(this.dataGV2);
+            this.tabPage2.Location = new System.Drawing.Point(4, 33);
+            this.tabPage2.Name = "tabPage2";
+            this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage2.Size = new System.Drawing.Size(577, 761);
+            this.tabPage2.TabIndex = 1;
+            this.tabPage2.Text = "Check for available Ports";
+            this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // dataGV2
+            // 
+            this.dataGV2.AllowUserToAddRows = false;
+            this.dataGV2.AllowUserToDeleteRows = false;
+            this.dataGV2.BackgroundColor = System.Drawing.Color.White;
+            this.dataGV2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGV2.Location = new System.Drawing.Point(6, 66);
+            this.dataGV2.Name = "dataGV2";
+            this.dataGV2.ReadOnly = true;
+            this.dataGV2.Size = new System.Drawing.Size(565, 692);
+            this.dataGV2.TabIndex = 0;
+            // 
+            // btn_lookForPorts
+            // 
+            this.btn_lookForPorts.Location = new System.Drawing.Point(357, 17);
+            this.btn_lookForPorts.Name = "btn_lookForPorts";
+            this.btn_lookForPorts.Size = new System.Drawing.Size(214, 43);
+            this.btn_lookForPorts.TabIndex = 1;
+            this.btn_lookForPorts.Text = "Start looking for Ports";
+            this.btn_lookForPorts.UseVisualStyleBackColor = true;
             // 
             // GUI
             // 
@@ -299,6 +351,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(609, 925);
+            this.Controls.Add(this.btn_AddRow);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.pick_protocol);
             this.Controls.Add(this.label_export);
@@ -319,6 +372,8 @@
             this.tabPage1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGV)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.partnerBindingSource)).EndInit();
+            this.tabPage2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGV2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -349,6 +404,10 @@
         private System.Windows.Forms.Label label_run_selected;
         private System.Windows.Forms.Button btn_Run_Selected;
         private System.Windows.Forms.TextBox txt_Instruction;
+        private System.Windows.Forms.Button btn_AddRow;
+        private System.Windows.Forms.TabPage tabPage2;
+        private System.Windows.Forms.Button btn_lookForPorts;
+        private System.Windows.Forms.DataGridView dataGV2;
     }
 }
 

@@ -31,6 +31,7 @@ namespace TCP_UDP_Tool
             btn_Stop.Visible = false;
             btn_export.Enabled = false;
             pick_protocol.SelectedItem = "tcp";
+            btn_AddRow.Visible = false;
         }
 
         private void bnt_import_Click(object sender, EventArgs e)
@@ -53,6 +54,7 @@ namespace TCP_UDP_Tool
             checkbox = new CheckBox[partnerarray.Length];
             btn_Run_Selected.Enabled = true;
             btn_Run.Enabled = true;
+            btn_AddRow.Visible = true;
             formBuildUp();
         }
 
@@ -187,6 +189,14 @@ namespace TCP_UDP_Tool
                     if (dataGV.Rows[i].Cells[0].Selected == true)
                         ngr[i].startManuelClient();
                 }                
+            }
+        }
+
+        private void btn_AddRow_Click(object sender, EventArgs e)
+        {
+            if(ngr != null)
+            {
+                dataGV.Rows.Add(1);
             }
         }
     }

@@ -106,7 +106,7 @@ namespace TCP_UDP_Tool
             {
                 if (!alreadyThrownSocketException)
                 {
-                    //alreadyThrownSocketException = true;
+                    alreadyThrownSocketException = true;
                     ShowErrorDialog(ex.Message);
                 }
             }
@@ -114,7 +114,7 @@ namespace TCP_UDP_Tool
             {
                 if (!alreadyThrownObjectException)
                 {
-                    //alreadyThrownObjectException = true;
+                    alreadyThrownObjectException = true;
                     ShowErrorDialog(ex.Message);
                 }
             }
@@ -135,10 +135,8 @@ namespace TCP_UDP_Tool
         private void SendCallbackTCP(IAsyncResult ar)
         {
             try
-            {
-                //((Socket)ar.AsyncState)
+            {                
                 clientSocket.EndSend(ar);
-
             }
             catch (SocketException ex)
             {
@@ -166,6 +164,7 @@ namespace TCP_UDP_Tool
                     {
                         Row.Cells["Status"].Value = message;
                         Row.Cells["Status"].Style.BackColor = Color.LimeGreen;
+                        serverSocket.Close();
                         Connected = true;
                     }
                 }
@@ -273,8 +272,7 @@ namespace TCP_UDP_Tool
         public void displayStatus()
         {
             if(Connected)
-            {
-                //Row.Cells["Status"].Value = "Connected";
+            {                
                 Row.Cells["Status"].Style.BackColor = Color.LimeGreen;        
             }
             else
@@ -303,9 +301,14 @@ namespace TCP_UDP_Tool
                 Row.Cells["Status"].Style.BackColor = Color.Red;
             }
             if (clientSocket != null)
+            {
                 clientSocket.Close();
+            }
+
             if (serverSocket != null)
-                clientSocket.Close();
+            {                
+                serverSocket.Close();               
+            }
         }
     }
 }
