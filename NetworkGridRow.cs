@@ -164,7 +164,11 @@ namespace TCP_UDP_Tool
                     {
                         Row.Cells["Status"].Value = message;
                         Row.Cells["Status"].Style.BackColor = Color.LimeGreen;
-                        serverSocket.Close();
+                        if(serverSocket != null)
+                            serverSocket.Close();
+                        
+                        if(clientSocket != null)
+                            clientSocket.Close();
                         Connected = true;
                     }
                 }
