@@ -1,23 +1,14 @@
 ﻿using System;
-using System.Text;
 using System.Windows.Forms;
-using System.Net;
-using System.Net.Sockets;
-using System.IO;
-using OfficeOpenXml;
 using System.Linq;
 using System.Drawing;
-using System.Collections.Generic;
-using System.Security.Cryptography.Pkcs;
-using System.Runtime.InteropServices;
-using System.Diagnostics;
 using System.Data;
 
 namespace TCP_UDP_Tool
 {
     public partial class GUI : Form
     {
-        Partner[] partnerarray = new Partner[18];
+        Partner[] partnerarray = new Partner[100];
         NetworkGridRow[] ngr;
         CheckBox[] checkbox; 
         int numberOfEndpoints = 0;        
@@ -117,8 +108,7 @@ namespace TCP_UDP_Tool
                             dataGV.Rows[row].Cells[0].Value = row;
                             dataGV.Rows[row].Cells["IP-Address"].Value = partnerarray[i].ip;
                             dataGV.Rows[row].Cells["Ports"].Value = partnerarray[i].endpoints[j].port;
-                            row++;
-                            //break;
+                            row++;                           
                         }                        
                     }
                     else break;
