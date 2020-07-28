@@ -9,10 +9,10 @@ namespace TCP_UDP_Tool
 {
     class Exporter
     {
-        internal void startExport(NetworkGridRow[] ngr, string filePath)
+        public void startExport(NetworkGridRow[] ngr, string filePath)
         {
             string success = "VALID CONNECTIONS THAT WORKED IN TERMS OF CONNECTION, SENDING AND REVEIVING. \r\n---------------------------------------------------------------------------------\r\n";
-            string failed = "FAILED CONNECTIONS THAT FAILED IN TERMS OF CONNECTION, SENDING AND REVEIVING. \r\n---------------------------------------------------------------------------------\r\n"; ;
+            string failed = "FAILED CONNECTIONS THAT FAILED IN TERMS OF CONNECTION, SENDING AND REVEIVING. \r\n---------------------------------------------------------------------------------\r\n";
 
             for (int i = 0; i < ngr.Length; i++)
             {

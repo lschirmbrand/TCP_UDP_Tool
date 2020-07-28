@@ -52,15 +52,12 @@ namespace TCP_UDP_Tool
                         {
                             portsSplit[j] = Convert.ToString(tempPorts[counter]);                                                       
                             counter++;
-                        }
-
-                        //portsSplit[j].Replace(" ", string.Empty);                        
+                        }                                                
 
                         if (counter == tempPorts.Length)
                         {
                             break;
-                        }
-                        
+                        }                        
                     }                   
 
                 }

@@ -15,19 +15,10 @@ public class Endpoint
     }
     public string port;
     public protocolE protocol;
-    public modeE mode;
-
-
-
-    public Endpoint()
-    {
-        //Standardkonstruktor
-    }
-
+    public modeE mode;    
 
     public Endpoint(string port, string protocol, string mode)
     {
-
         this.port = port;
         if (protocol == "tcp")
         {
@@ -39,8 +30,6 @@ public class Endpoint
             this.mode = modeE.client;
         }
         else this.mode = modeE.server;
-
-
     }
 
 }

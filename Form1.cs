@@ -114,7 +114,6 @@ namespace TCP_UDP_Tool
                     else break;
                 }
             }
-
             
             dataGV.Visible = true;
         }       
